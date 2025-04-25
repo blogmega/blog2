@@ -112,5 +112,5 @@ httpRequest.onreadystatechange = function () {
     }
 };
 
-httpRequest.open('GET', 'https://tvserve.pages.dev/product.json', true);
+httpRequest.open('GET', 'https://tvserve.pages.dev/product', true);
 httpRequest.send();
