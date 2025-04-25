@@ -1,6 +1,6 @@
 console.clear();
 
-// Mengambil ID dari URL yang baru: /contentdetails/2
+// Mengambil ID dari URL
 let id = window.location.pathname.split('/').pop();
 console.log(id);  // Pastikan ini mengembalikan '2'
 
