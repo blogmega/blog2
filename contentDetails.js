@@ -1,10 +1,9 @@
 console.clear()
 
-// Ambil ID dari URL, misalnya ?abc123
-let id = location.search.split('/')[2]
-console.log("ID:", id)
+// Ambil ID dari URL format /contentDetails/abc123
+let id = location.pathname.split('/')[2]
+console.log("Product ID:", id)
 
-// Cek cookie dan tampilkan jumlah item di badge
 if (document.cookie.indexOf(',counter=') >= 0) {
     let counter = document.cookie.split(',')[1].split('=')[1]
     document.getElementById("badge").innerHTML = counter
@@ -52,13 +51,13 @@ function dynamicContentDetails(ob) {
     productPreviewDiv.appendChild(h3ProductPreviewDiv)
 
     for (let i = 0; i < ob.photos.length; i++) {
-        let imgTagProductPreviewDiv = document.createElement('img')
-        imgTagProductPreviewDiv.id = 'previewImg'
-        imgTagProductPreviewDiv.src = ob.photos[i]
-        imgTagProductPreviewDiv.onclick = function () {
-            document.getElementById("imgDetails").src = this.src
+        let previewImg = document.createElement('img')
+        previewImg.id = 'previewImg'
+        previewImg.src = ob.photos[i]
+        previewImg.onclick = function () {
+            imgTag.src = this.src
         }
-        productPreviewDiv.appendChild(imgTagProductPreviewDiv)
+        productPreviewDiv.appendChild(previewImg)
     }
 
     let buttonDiv = document.createElement('div')
@@ -66,7 +65,6 @@ function dynamicContentDetails(ob) {
 
     let buttonTag = document.createElement('button')
     buttonTag.appendChild(document.createTextNode('Add to Cart'))
-
     buttonTag.onclick = function () {
         let order = id + " "
         let counter = 1
@@ -91,24 +89,15 @@ function dynamicContentDetails(ob) {
     detailsDiv.appendChild(para)
     productDetailsDiv.appendChild(productPreviewDiv)
     productDetailsDiv.appendChild(buttonDiv)
-
-    return mainContainer
 }
 
-// Ambil data dari product.json dan cari yang cocok dengan ID
+// Fetch product data
 let httpRequest = new XMLHttpRequest()
 httpRequest.onreadystatechange = function () {
     if (this.readyState === 4 && this.status == 200) {
         console.log('connected!!')
-        let contentList = JSON.parse(this.responseText)
-
-        let product = contentList.find(item => item.id === id)
-
-        if (product) {
-            dynamicContentDetails(product)
-        } else {
-            console.error("Product not found with id:", id)
-        }
+        let contentDetails = JSON.parse(this.responseText)
+        dynamicContentDetails(contentDetails)
     } else if (this.readyState === 4) {
         console.log('not connected!')
     }
