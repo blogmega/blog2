@@ -1,14 +1,16 @@
-console.clear()
+console.clear();
 
-// Mengambil ID dari URL yang baru: /contentdetails/1
+// Mengambil ID dari URL yang baru: /contentdetails/2
 let id = window.location.pathname.split('/').pop();
-console.log(id);
+console.log(id);  // Pastikan ini mengembalikan '2'
 
+// Cek apakah ada counter di cookies dan update badge jika ada
 if (document.cookie.indexOf(',counter=') >= 0) {
     let counter = document.cookie.split(',')[1].split('=')[1];
     document.getElementById("badge").innerHTML = counter;
 }
 
+// Fungsi untuk merender halaman detail produk
 function dynamicContentDetails(ob) {
     let mainContainer = document.createElement('div');
     mainContainer.id = 'containerD';
@@ -20,7 +22,6 @@ function dynamicContentDetails(ob) {
     let imgTag = document.createElement('img');
     imgTag.id = 'imgDetails';
     imgTag.src = ob.preview;
-
     imageSectionDiv.appendChild(imgTag);
 
     let productDetailsDiv = document.createElement('div');
@@ -65,7 +66,7 @@ function dynamicContentDetails(ob) {
             console.log("clicked " + this.src);
             imgTag.src = ob.photos[i];
             document.getElementById("imgDetails").src = this.src;
-        }
+        };
         productPreviewDiv.appendChild(imgTagProductPreviewDiv);
     }
 
@@ -86,9 +87,10 @@ function dynamicContentDetails(ob) {
         document.cookie = "orderId=" + order + ",counter=" + counter;
         document.getElementById("badge").innerHTML = counter;
         console.log(document.cookie);
-    }
+    };
     buttonTag.appendChild(buttonText);
 
+    console.log(mainContainer.appendChild(imageSectionDiv));  // Periksa elemen yang ditambahkan
     mainContainer.appendChild(imageSectionDiv);
     mainContainer.appendChild(productDetailsDiv);
     productDetailsDiv.appendChild(h1);
@@ -103,18 +105,20 @@ function dynamicContentDetails(ob) {
     return mainContainer;
 }
 
-// BACKEND CALLING
+// Melakukan request ke API untuk mengambil data produk berdasarkan ID
 let httpRequest = new XMLHttpRequest();
 httpRequest.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status == 200) {
-        console.log('connected!!');
-        let contentDetails = JSON.parse(this.responseText);
-        console.log(contentDetails);
-        dynamicContentDetails(contentDetails);
-    } else {
-        console.log('not connected!');
+    if (this.readyState === 4) {
+        if (this.status === 200) {
+            console.log('Connected to API');
+            let contentDetails = JSON.parse(this.responseText);
+            console.log(contentDetails);  // Pastikan data produk diterima dengan benar
+            dynamicContentDetails(contentDetails);  // Render halaman detail produk
+        } else {
+            console.log('Failed to connect to API', this.status);  // Periksa status jika gagal
+        }
     }
-}
+};
 
 httpRequest.open('GET', 'https://5d76bf96515d1a0014085cf9.mockapi.io/product/' + id, true);
 httpRequest.send();
