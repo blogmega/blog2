@@ -1,8 +1,8 @@
 console.clear()
 
 // Ambil ID dari URL format /contentDetails/abc123
-let id = location.pathname.split('/')[2]
-console.log("Product ID:", id)
+let id = location.pathname.split('/')[2];
+console.log("Extracted ID:", id); // <-- tambahkan ini
 
 if (document.cookie.indexOf(',counter=') >= 0) {
     let counter = document.cookie.split(',')[1].split('=')[1]
