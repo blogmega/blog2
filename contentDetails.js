@@ -1,8 +1,7 @@
 console.clear()
 
-let pathParts = window.location.pathname.split('/');
-let id = pathParts[pathParts.length - 1];
-console.log(id)
+let id = location.pathname.split('/').pop(); 
+console.log(id);
 
 if(document.cookie.indexOf(',counter=')>=0)
 {
