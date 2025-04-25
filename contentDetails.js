@@ -96,8 +96,15 @@ let httpRequest = new XMLHttpRequest()
 httpRequest.onreadystatechange = function () {
     if (this.readyState === 4 && this.status == 200) {
         console.log('connected!!')
-        let contentDetails = JSON.parse(this.responseText)
-        dynamicContentDetails(contentDetails)
+        let data = JSON.parse(this.responseText)
+        let contentDetails = data.find(item => item.id === id)
+
+        if (contentDetails) {
+            dynamicContentDetails(contentDetails)
+        } else {
+            console.log("Product not found with id:", id)
+            document.getElementById("containerProduct").innerHTML = "<p>Product not found.</p>"
+        }
     } else if (this.readyState === 4) {
         console.log('not connected!')
     }
