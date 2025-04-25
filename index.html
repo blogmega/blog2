@@ -36,17 +36,6 @@
 
     <!-- CONTENT SECTION -->
     <div id="3"></div>
-    <script>
-        load("content.html");
-        function load(url)
-        {
-            req = new XMLHttpRequest();
-            req.open("GET", url, false);
-            req.send(null);
-            document.getElementById(3).innerHTML = req.responseText;
-        }
-    </script>
-
     <!-- FOOTER -->
     <div id="4"></div>
 <script>
@@ -58,6 +47,7 @@
     }
 
     load("header.html", "1");
+    load("content.html", "3");
     load("footer.html", "4");
 </script>
 
