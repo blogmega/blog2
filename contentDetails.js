@@ -1,7 +1,7 @@
 console.clear()
 
 // Ambil ID dari URL, misalnya ?abc123
-let id = location.search.split('?')[1]
+let id = location.search.split('/')[2]
 console.log("ID:", id)
 
 // Cek cookie dan tampilkan jumlah item di badge
