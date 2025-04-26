@@ -1,9 +1,8 @@
 console.clear()
 
 // Ambil ID dari URL, misalnya ?abc123
-let pathParts = window.location.pathname.split('/');
-let id = pathParts[pathParts.length - 1];
-console.log("ID:", id);
+let id = location.search.split('?')[1]
+console.log("ID:", id)
 
 // Cek cookie dan tampilkan jumlah item di badge
 if (document.cookie.indexOf(',counter=') >= 0) {
