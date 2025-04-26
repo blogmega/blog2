@@ -17,8 +17,6 @@
 <body>
     <!-- CONTENT SECTION -->
     <div id="3"></div>
-    <!-- FOOTER -->
-    <div id="4"></div>
 <script>
     function load(url, targetId) {
         let req = new XMLHttpRequest();
@@ -27,12 +25,10 @@
         document.getElementById(targetId).innerHTML = req.responseText;
     }
     load("content.html", "3");
-    load("footer.html", "4");
 </script>
 
 </body>
 
-<!-- content JS -->
 <script src="content.js"></script>
 
 </html>
