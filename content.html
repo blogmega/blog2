@@ -3,58 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TVServe Content</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> CONTENT | E-COMMERCE WEBSITE BY EDYODA </title>
+    <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+    <!-- favicon -->
+    <link rel="icon" href="https://yt3.ggpht.com/a/AGF-l78km1YyNXmF0r3-0CycCA0HLA_i6zYn_8NZEg=s900-c-k-c0xffffffff-no-rj-mo" type="image/gif" sizes="16x16">
+
+    <link rel="stylesheet" href="css/content.css">
+
 </head>
 <body>
-    <div id="content">Loading...</div>
+    <div id="mainContainer">
 
-    <script>
-    async function loadContent() {
-        const path = window.location.pathname;
-        const contentDiv = document.getElementById('content');
+        <h1> clothing for men and women </h1>
+        <div id="containerClothing">
+            <!-- JS rendered code -->
+        </div>
 
-        try {
-            const response = await fetch('/product.json');
-            const products = await response.json();
-
-            if (path === '/content' || path === '/content/') {
-                // List all products
-                let html = '<h1>Product List</h1><ul>';
-                products.forEach(product => {
-                    html += `<li><a href="/content/${product.id}">${product.name}</a></li>`;
-                });
-                html += '</ul>';
-                contentDiv.innerHTML = html;
-            } else if (path.startsWith('/content/')) {
-                // Show product detail
-                const productId = path.split('/content/')[1];
-                const product = products.find(p => p.id === productId);
-
-                if (product) {
-                    contentDiv.innerHTML = `
-                        <h1>${product.name}</h1>
-                        <img src="${product.preview}" alt="${product.name}" style="max-width:300px;">
-                        <p><strong>Brand:</strong> ${product.brand}</p>
-                        <p><strong>Price:</strong> ₹${product.price}</p>
-                        <p>${product.description}</p>
-                        <h3>Photos:</h3>
-                        ${product.photos.map(photo => `<img src="${photo}" style="width:100px; margin:5px;">`).join('')}
-                        <br><br>
-                        <a href="/content">← Back to Products</a>
-                    `;
-                } else {
-                    contentDiv.innerHTML = '<h2>Product not found</h2><a href="/content">← Back to Products</a>';
-                }
-            } else {
-                contentDiv.innerHTML = '<h2>Page not found</h2>';
-            }
-        } catch (err) {
-            contentDiv.innerHTML = '<h2>Error loading products</h2>';
-            console.error(err);
-        }
-    }
-
-    window.onload = loadContent;
-    </script>
+        <h1> accessories for men and women </h1>
+        <div id="containerAccessories">
+            <!-- JS rendered code -->
+        </div>
+    </div>
 </body>
+<script src="content.js"></script>
 </html>
